@@ -1,5 +1,4 @@
-#! /usr/bin/env python
-
+## Code for recording PSM1, MTMR, PSM3, MTML, Clutch press synchronized to UNIX timestamp 
 import rospy
 from geometry_msgs.msg import Twist
 from sensor_msgs.msg import Image
