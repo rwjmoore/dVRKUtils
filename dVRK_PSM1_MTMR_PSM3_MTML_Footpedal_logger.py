@@ -331,7 +331,7 @@ if __name__ == '__main__':
 
 	print("Finished logging....Saving images...")
 
-#Comment out this section if you want to save the images
+#Section pertaining to image saving
 
 	# time_start = time.time()
 
