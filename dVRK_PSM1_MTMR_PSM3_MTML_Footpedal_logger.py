@@ -21,8 +21,8 @@ import eyegaze
 import footpedals
 import time
 import json
-from Tkinter import Tk
-import tkFileDialog
+import tkinter as tk
+from tkinter.filedialog import askdirectory
 
 if sys.version_info.major < 3:
     input = raw_input
@@ -43,9 +43,9 @@ if __name__ == '__main__':
 	# right_cam = camera.camera('right')
 
 
-	root = Tk()
+	root = tk.Tk()
 	root.withdraw()
-	open_file = tkFileDialog.askdirectory()
+	open_file = askdirectory()
 
 	print('The path specified is ' + open_file)
 
@@ -188,27 +188,27 @@ if __name__ == '__main__':
 	worksheet.write(0, 95, 'ECM_Orientation_Matrix_[3,2]')
 	worksheet.write(0, 96, 'ECM_Orientation_Matrix_[3,3]')
 
-	#write the column headers for Footpedals
-	worksheet.write(0, 97, 'Headsensor State')
-	worksheet.write(0, 98, 'Clutch State')
-	worksheet.write(0, 99, 'Camera State')
-	worksheet.write(0, 100, 'Focus In Pressed')
-	worksheet.write(0, 101, 'Focus Out Pressed')
-	worksheet.write(0, 102, 'Coag State')
+	# #write the column headers for Footpedals
+	# worksheet.write(0, 97, 'Headsensor State')
+	# worksheet.write(0, 98, 'Clutch State')
+	# worksheet.write(0, 99, 'Camera State')
+	# worksheet.write(0, 100, 'Focus In Pressed')
+	# worksheet.write(0, 101, 'Focus Out Pressed')
+	# worksheet.write(0, 102, 'Coag State')
 
-	worksheet.write(0, 103, 'Tracker Time(s)')
-	worksheet.write(0, 104, 'LPOGX')
-	worksheet.write(0, 105, 'LPOGY')
-	worksheet.write(0, 106, 'LPOGV')
-	worksheet.write(0, 107, 'RPOGX')
-	worksheet.write(0, 108, 'RPOGY')
-	worksheet.write(0, 109, 'RPOGV')
-	worksheet.write(0, 110, 'BPOGX')
-	worksheet.write(0, 111, 'BPOGY')
-	worksheet.write(0, 112, 'BPOGV')
+	# worksheet.write(0, 103, 'Tracker Time(s)')
+	# worksheet.write(0, 104, 'LPOGX')
+	# worksheet.write(0, 105, 'LPOGY')
+	# worksheet.write(0, 106, 'LPOGV')
+	# worksheet.write(0, 107, 'RPOGX')
+	# worksheet.write(0, 108, 'RPOGY')
+	# worksheet.write(0, 109, 'RPOGV')
+	# worksheet.write(0, 110, 'BPOGX')
+	# worksheet.write(0, 111, 'BPOGY')
+	# worksheet.write(0, 112, 'BPOGV')
 
-	worksheet.write(0, 113, 'Left Camera Image')
-	worksheet.write(0, 114, 'Right Camera Image')
+	# worksheet.write(0, 113, 'Left Camera Image')
+	# worksheet.write(0, 114, 'Right Camera Image')
 
 
 	i = 0
@@ -275,21 +275,21 @@ if __name__ == '__main__':
 
 		ECM_data = np.concatenate((ECM_jp, ECM_ee, ECM_Orientation_Matrix), axis = 0)
 
-		#Get footpedal data
-		Operator_present = footpedal.get_headsensor_state()
-		clutch_state = footpedal.get_clutch_state()
-		camera_state = footpedal.get_camera_state()
-		focus_in_state = footpedal.get_cam_plus_state()
-		focus_out_state = footpedal.get_cam_minus_state()
-		coag_state = footpedal.get_coag_state()
+		# #Get footpedal data
+		# Operator_present = footpedal.get_headsensor_state()
+		# clutch_state = footpedal.get_clutch_state()
+		# camera_state = footpedal.get_camera_state()
+		# focus_in_state = footpedal.get_cam_plus_state()
+		# focus_out_state = footpedal.get_cam_minus_state()
+		# coag_state = footpedal.get_coag_state()
 
-		footpedal_data = np.concatenate((Operator_present, clutch_state, camera_state, focus_in_state, focus_out_state, coag_state), axis = 0)
+		# footpedal_data = np.concatenate((Operator_present, clutch_state, camera_state, focus_in_state, focus_out_state, coag_state), axis = 0)
 		
-		#Get Eye Gaze data
-		gaze_data = Gaze.get_gaze_state()
+		# #Get Eye Gaze data
+		# gaze_data = Gaze.get_gaze_state()
 
 		#Concatenate all data
-		all_data = np.concatenate((PSM1_data, MTMR_data, PSM3_data, MTML_data, ECM_data, footpedal_data, gaze_data), axis = 0)
+		all_data = np.concatenate((PSM1_data, MTMR_data, PSM3_data, MTML_data, ECM_data), axis = 0)
 		
 		time = data.header.stamp.secs + data.header.stamp.nsecs*10**(-9)
 		epoch_time = time
@@ -329,7 +329,7 @@ if __name__ == '__main__':
 
 	workbook.close()
 
-	print("Finished logging....Saving images...")
+	print("Finished logging....")
 
 #Section pertaining to image saving
 
